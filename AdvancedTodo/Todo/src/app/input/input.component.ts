@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
+import { AppState } from '../../store/reducer';
+import { Store } from '@ngrx/store';
+import { addTodo } from '../../store/actions';
 
 @Component({
   selector: 'app-input',
@@ -12,10 +12,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './input.component.css'
 })
 export class InputComponent {
-  @Output() sendTodoInput = new EventEmitter<String>();
   todoInput=""
-  addTodo(){
-    this.sendTodoInput.emit(this.todoInput)
-    this.todoInput=""
+  constructor(private readonly store: Store<AppState>){}
+  updateTodos(){
+    console.log("aayush")
+    console.log(this.todoInput)
+    this.store.dispatch(addTodo({text: this.todoInput}))
   }
 }
